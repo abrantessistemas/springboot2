@@ -24,9 +24,9 @@ public class UserService {
 	}
 
 	@Transactional
-	public UserDomain save(UserModel usuario) {
-		usuario.setCreateAt(LocalDateTime.now().toString());
-		return UserMapper.INSTANCE.modelToDomain(repository.save(usuario));
+	public UserDomain save(UserModel user) {
+		user.setCreateAt(LocalDateTime.now().toString());
+		return UserMapper.INSTANCE.modelToDomain(repository.save(user));
 	}
 
 	public UserDomain findById(long id) {
@@ -40,5 +40,9 @@ public class UserService {
 		if (!uModel.equals(null)) {
 			repository.delete(uModel);
 		}
+	}
+
+	public UserDomain update(UserModel user) {
+		return UserMapper.INSTANCE.modelToDomain(repository.saveAndFlush(user));
 	}
 }
