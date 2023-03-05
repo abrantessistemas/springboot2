@@ -1,5 +1,6 @@
 package br.com.springboot2.services;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +25,12 @@ public class UserService {
 
 	@Transactional
 	public UserDomain save(UserModel usuario) {
+		usuario.setCreateAt(LocalDateTime.now().toString());
 		return UserMapper.INSTANCE.modelToDomain(repository.save(usuario));
 	}
 
 	public UserDomain findById(long id) {
-		return UserMapper.INSTANCE.modelToDomain(
-				repository.findById(id).orElseThrow(() -> new BadRequestException(new LanguageSystem().translater("User not found."))));
+		return UserMapper.INSTANCE.modelToDomain(repository.findById(id)
+				.orElseThrow(() -> new BadRequestException(new LanguageSystem().translater("User not found."))));
 	}
 }
