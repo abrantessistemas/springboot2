@@ -10,14 +10,14 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "usuario")
-public class UsuarioModel {
+@Table(name = "users")
+public class UserModel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	private String dataCriacao;
-	private boolean ativo;
-	private String nome;
+	private String createAt;
+	private boolean active;
+	private String name;
 	private String email;
-	private String senha;
+	private String password;
 }
