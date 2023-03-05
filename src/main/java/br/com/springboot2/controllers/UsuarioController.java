@@ -2,6 +2,8 @@ package br.com.springboot2.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,8 +24,8 @@ public class UsuarioController {
 	private UsuarioService usuarioService;
 
 	@PostMapping("/save")
-	public ResponseEntity<UsuarioDomain> createUsuario(@RequestBody UsuarioDomain payload) {
-		return new ResponseEntity<>(UsuarioMapper.INSTANCE.modelToDomain(usuarioService.save(payload)),
+	public ResponseEntity<UsuarioDomain> createUsuario(@RequestBody @Valid UsuarioDomain payload) {
+		return new ResponseEntity<>(usuarioService.save(UsuarioMapper.INSTANCE.domainToModel(payload)),
 				HttpStatus.CREATED);
 	}
 

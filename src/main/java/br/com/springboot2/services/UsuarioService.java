@@ -21,7 +21,7 @@ public class UsuarioService {
 	}
 
 	@Transactional
-	public UsuarioModel save(UsuarioDomain usuario) {
-		return repository.save(UsuarioMapper.INSTANCE.domainToModel(usuario));
+	public UsuarioDomain save(UsuarioModel usuario) {
+		return UsuarioMapper.INSTANCE.modelToDomain(repository.save(usuario));
 	}
 }
