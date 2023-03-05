@@ -33,4 +33,12 @@ public class UserService {
 		return UserMapper.INSTANCE.modelToDomain(repository.findById(id)
 				.orElseThrow(() -> new BadRequestException(new LanguageSystem().translater("User not found."))));
 	}
+
+	public void delete(long id) {
+		UserModel uModel = UserMapper.INSTANCE.domainToModel(this.findById(id));
+
+		if (!uModel.equals(null)) {
+			repository.delete(uModel);
+		}
+	}
 }
