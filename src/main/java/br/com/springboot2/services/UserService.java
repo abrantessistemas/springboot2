@@ -6,7 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,8 +27,8 @@ public class UserService {
 		return UserMapper.INSTANCE.toDomain(repository.findAll());
 	}
 
-	public Page<UserDomain> findAll(Pageable pageable) {
-		Page<UserModel> list = repository.findAll(pageable);
+	public Page<UserDomain> findAll(int page, int pageSize) {
+		Page<UserModel> list = repository.findAll(PageRequest.of(page - 1, pageSize, Sort.by("name").ascending()));
 
 		return new PageImpl<UserDomain>(UserMapper.INSTANCE.toDomain(list.getContent()), list.getPageable(),
 				list.getTotalElements());
